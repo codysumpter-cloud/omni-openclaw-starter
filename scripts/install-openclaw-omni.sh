@@ -43,7 +43,7 @@ fi
 
 if [ ! -d "$REPO_DIR" ]; then
   echo "==> Cloning starter repo"
-  git clone https://github.com/<YOUR_ORG>/<YOUR_REPO>.git "$REPO_DIR"
+  git clone https://github.com/codysumpter-cloud/omni-openclaw-starter.git "$REPO_DIR"
 fi
 
 cd "$REPO_DIR/omni-api"

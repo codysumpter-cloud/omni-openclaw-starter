@@ -27,7 +27,7 @@ export VM_NAME="omni-openclaw"
 export BOOT_DISK_GB="120"
 export DATA_DISK_GB="200"
 
-bash scripts/create-gcp-vm.sh
+curl -fsSL https://raw.githubusercontent.com/codysumpter-cloud/omni-openclaw-starter/main/scripts/create-gcp-vm.sh | bash
 ```
 
 ---
