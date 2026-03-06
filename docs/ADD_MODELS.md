@@ -11,19 +11,32 @@ nano ~/.config/omni-agent.env
 systemctl --user restart omni-openclaw.service
 ```
 
-## Enable paid providers in OpenClaw later
+## Enable optional provider backends later
 
-Edit your OpenClaw config/env and add provider keys only if you want fallback:
+### Nano Banana 2 (free tier / optional)
+
+Set Omni runtime env in your `prismbot-core` environment (or equivalent runtime env file):
+
+```bash
+OMNI_NANOBANANA2_ENABLED=true
+OMNI_NANOBANANA2_CHAT_URL=https://<nanobanana2-chat-endpoint>
+# optional if service requires auth
+OMNI_NANOBANANA2_API_KEY=<token>
+OMNI_NANOBANANA2_MODEL=nanobanana-2
+```
+
+Then restart Omni runtime and verify:
+
+```bash
+openclaw gateway restart
+curl -fsS http://127.0.0.1:8799/api/omni/models
+```
+
+### Other providers (optional)
 
 - `OPENAI_API_KEY`
 - `ANTHROPIC_API_KEY`
 - `GOOGLE_API_KEY` (or `GEMINI_API_KEY`)
 - `XAI_API_KEY`
-
-Then restart your OpenClaw gateway:
-
-```bash
-openclaw gateway restart
-```
 
 Tip: keep local-first as default for zero-cost usage.
