@@ -111,7 +111,38 @@ openclaw logs --follow
 
 ---
 
-## 5) Add other models later (optional)
+## 5) Safe storage defaults (enabled)
+
+This starter now enables automatic storage hygiene:
+- Deletes generated files older than **24h**
+- Enforces a per-path storage cap of **4096 MB**
+- Runs hourly via `systemd --user` timer: `omni-storage-prune.timer`
+
+Config file:
+
+```bash
+~/.config/omni-storage.env
+```
+
+Default config:
+
+```bash
+OMNI_RETENTION_HOURS=24
+OMNI_MAX_STORAGE_MB=4096
+OMNI_STORAGE_PATHS=$HOME/omni-openclaw-starter/artifacts,/mnt/omni-data/omni-artifacts
+```
+
+Useful commands:
+
+```bash
+systemctl --user status omni-storage-prune.timer
+systemctl --user start omni-storage-prune.service   # run prune now
+journalctl --user -u omni-storage-prune.service -n 100 --no-pager
+```
+
+---
+
+## 6) Add other models later (optional)
 
 By default this stack runs local-only. To add paid providers later, edit env and restart:
 

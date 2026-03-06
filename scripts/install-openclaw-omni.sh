@@ -80,8 +80,42 @@ RestartSec=2
 WantedBy=default.target
 UNIT
 
+mkdir -p "$HOME/omni-openclaw-starter/artifacts"
+mkdir -p "$MOUNT_POINT/omni-artifacts" 2>/dev/null || true
+
+if [ ! -f "$HOME/.config/omni-storage.env" ]; then
+  cat > "$HOME/.config/omni-storage.env" <<EOF
+OMNI_RETENTION_HOURS=24
+OMNI_MAX_STORAGE_MB=4096
+OMNI_STORAGE_PATHS=$HOME/omni-openclaw-starter/artifacts,$MOUNT_POINT/omni-artifacts
+EOF
+fi
+
+cat > "$HOME/.config/systemd/user/omni-storage-prune.service" <<'UNIT'
+[Unit]
+Description=Prune Omni generated storage by age and size cap
+
+[Service]
+Type=oneshot
+ExecStart=%h/omni-openclaw-starter/scripts/prune-omni-storage.sh
+UNIT
+
+cat > "$HOME/.config/systemd/user/omni-storage-prune.timer" <<'UNIT'
+[Unit]
+Description=Run Omni storage prune hourly
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+UNIT
+
+chmod +x "$HOME/omni-openclaw-starter/scripts/prune-omni-storage.sh"
+
 systemctl --user daemon-reload
-systemctl --user enable --now omni-openclaw.service
+systemctl --user enable --now omni-openclaw.service omni-storage-prune.timer
 
 cat <<'DONE'
 
