@@ -88,7 +88,8 @@ cat <<'DONE'
 ✅ Install complete.
 
 Next:
-1) Run onboarding: openclaw onboard --install-daemon
+1) Configure OpenClaw to local model only (no Anthropic/OpenAI required):
+   ollama launch openclaw --model omni-core:phase2
 2) Set your agent identity: nano ~/.config/omni-agent.env (AGENT_NAME)
 3) Verify:
    - openclaw status

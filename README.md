@@ -46,6 +46,12 @@ Inside the VM, run:
 curl -fsSL https://raw.githubusercontent.com/codysumpter-cloud/omni-openclaw-starter/main/scripts/install-openclaw-omni.sh | bash
 ```
 
+Then configure OpenClaw to use local Omni model (no Anthropic token needed):
+
+```bash
+ollama launch openclaw --model omni-core:phase2
+```
+
 Then customize your agent name:
 
 ```bash
@@ -91,6 +97,13 @@ systemctl --user restart omni-openclaw.service
 ```
 
 See `docs/ADD_MODELS.md`.
+
+If OpenClaw keeps asking for Anthropic/OpenAI on first run, re-pin local model:
+
+```bash
+ollama launch openclaw --model omni-core:phase2
+openclaw gateway restart
+```
 
 ---
 
