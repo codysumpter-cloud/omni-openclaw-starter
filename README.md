@@ -82,7 +82,36 @@ If healthy, your local Omni API is live.
 
 ---
 
-## 4) Add other models later (optional)
+## 4) Connect Telegram (quick)
+
+```bash
+openclaw configure --section channels
+```
+
+In the wizard:
+1. Choose **Telegram**
+2. Paste your **BotFather token**
+3. Add your Telegram numeric user ID to the allowlist
+4. Save/apply
+
+Then:
+
+```bash
+openclaw gateway restart
+openclaw status --deep
+```
+
+Tip: if you don't know your Telegram numeric ID, message your bot once, then run:
+
+```bash
+openclaw logs --follow
+```
+
+(or use any Telegram "get my id" helper bot).
+
+---
+
+## 5) Add other models later (optional)
 
 By default this stack runs local-only. To add paid providers later, edit env and restart:
 
